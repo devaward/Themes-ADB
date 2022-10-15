@@ -62,8 +62,7 @@ window.addEventListener('load', async () => {
 	const bookmarkList = document.querySelector('.bookmarkList');
 	let bookmarks = getCookie('bookmarks');
 	let currentCookie = !bookmarks ? [] : JSON.parse(bookmarks);
-	console.log(bookmarks);
-	/*if(bookmarkList) {
+	if(bookmarkList) {
 		console.log(currentCookie);
 		if(currentCookie.length > 0) {
 			for(id of currentCookie) {
@@ -74,5 +73,5 @@ window.addEventListener('load', async () => {
 				console.log(json);
 			}
 		}
-	}*/
+	}
 });
