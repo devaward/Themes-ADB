@@ -66,11 +66,21 @@ window.addEventListener('load', async () => {
 		if(currentCookie.length > 0) {
 			for(id of currentCookie) {
 				let getData = await fetch(`/feeds/posts/default/${id}?alt=json`);
-				let json = await getData.json();
+				let {entry} = await getData.json();
+				let {title, link} = entry;
 				let list = document.createElement('div');
 				bookmarkList.appendChild(list);
-				console.log(json);
+				list.textContent = title['$t'];
+				list.onclick = () => {
+					for(let {rel, href} of link) {
+						if(rel === 'alternate') {
+							window.location = href;
+						}
+					}
+				}
 			}
+		} else {
+			bookmarkList.textContent = 'Belum ada postingan yang anda simpan.';
 		}
 	}
 });
