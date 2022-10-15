@@ -1,1 +1,76 @@
-function setCookie(e,t,o){const n=new Date;n.setTime(n.getTime()+24*o*60*60*1e3);let i="expires="+n.toUTCString();document.cookie=e+"="+t+";"+i+";path=/"}function getCookie(e){let t=e+"=",o=decodeURIComponent(document.cookie).split(";");for(let e=0;e<o.length;e++){let n=o[e];for(;" "==n.charAt(0);)n=n.substring(1);if(0==n.indexOf(t))return n.substring(t.length,n.length)}return""}window.addEventListener("load",(()=>{const e=document.querySelector(".post_btnReact .btn.bookmark"),t=document.querySelector(".jona_animeinfo .item-post");if(e&&t){let o=t.getAttribute("post-id"),n=getCookie("bookmarks"),i=n?JSON.parse(n):[],s=i.indexOf(o),r=e.querySelector("span");-1===s?(e.classList.remove("enabled"),r.textContent="Bookmark"):(e.classList.add("enabled"),r.textContent="Bookmarked"),e.onclick=()=>{o=t.getAttribute("post-id"),n=getCookie("bookmarks"),i=n?JSON.parse(n):[],s=i.indexOf(o),-1===s?(i.push(o),e.classList.add("enabled"),r.textContent="Bookmarked"):(i.splice(s,1),e.classList.remove("enabled"),r.textContent="Bookmark"),setCookie("bookmarks",JSON.stringify(i),360)}}}));
+function setCookie(cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	let expires = "expires="+ d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for(let i = 0; i <ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+window.addEventListener('load', async () => {
+	const bookmarkBtn = document.querySelector('.post_btnReact .btn.bookmark');
+	const postEl = document.querySelector('.jona_animeinfo .item-post');
+	
+	if(bookmarkBtn && postEl) {
+		let postId = postEl.getAttribute('post-id');
+		let bookmarks = getCookie('bookmarks');
+		let currentCookie = !bookmarks ? [] : JSON.parse(bookmarks);
+		let hasId = currentCookie.indexOf(postId);
+		
+		/* [ Check Cookies ] */
+		let title = bookmarkBtn.querySelector('span');
+		if(hasId === -1) {
+			bookmarkBtn.classList.remove('enabled');
+			title.textContent = 'Bookmark';
+		} else {
+			bookmarkBtn.classList.add('enabled');
+			title.textContent = 'Bookmarked';
+		}
+		
+		/* [ Btn Cookies ] */
+		bookmarkBtn.onclick = () => {
+			postId = postEl.getAttribute('post-id');
+			bookmarks = getCookie('bookmarks');
+			currentCookie = !bookmarks ? [] : JSON.parse(bookmarks);
+			hasId = currentCookie.indexOf(postId);
+			if(hasId === -1) {
+				currentCookie.push(postId);
+				bookmarkBtn.classList.add('enabled');
+				title.textContent = 'Bookmarked';
+			} else {
+				currentCookie.splice(hasId, 1);
+				bookmarkBtn.classList.remove('enabled');
+				title.textContent = 'Bookmark';
+			}
+			setCookie('bookmarks', JSON.stringify(currentCookie), 360);
+		}
+	}
+	
+	/* [ List Bookmarked ] */
+	const bookmarkList = document.querySelector('.bookmarkList');
+	let bookmarks = getCookie('bookmarks');
+	let currentCookie = !bookmarks ? [] : JSON.parse(bookmarks);
+	if(bookmarkList) {
+		console.log(currentCookie);
+		if(currentCookie.length >= 1) {
+			for(id of currentCookie) {
+				let getData = await fetch(`https://aoyama.fansub.id/feeds/posts/default/${id}?alt=json`);
+				let json = await getData.json();
+				let list = document.createElement('div');
+				currentCookie.appendChild(list);
+			}
+		}
+	}
+});
