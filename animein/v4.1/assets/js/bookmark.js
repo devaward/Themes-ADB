@@ -63,7 +63,6 @@ window.addEventListener('load', async () => {
 	let bookmarks = getCookie('bookmarks');
 	let currentCookie = !bookmarks ? [] : JSON.parse(bookmarks);
 	if(bookmarkList) {
-		console.log(currentCookie);
 		if(currentCookie.length > 0) {
 			for(id of currentCookie) {
 				let getData = await fetch(`/feeds/posts/default/${id}?alt=json`);
