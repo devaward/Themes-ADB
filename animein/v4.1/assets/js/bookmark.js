@@ -70,6 +70,7 @@ window.addEventListener('load', async () => {
 				let json = await getData.json();
 				let list = document.createElement('div');
 				currentCookie.appendChild(list);
+				console.log(json);
 			}
 		}
 	}
