@@ -64,12 +64,12 @@ window.addEventListener('load', async () => {
 	let currentCookie = !bookmarks ? [] : JSON.parse(bookmarks);
 	if(bookmarkList) {
 		console.log(currentCookie);
-		if(currentCookie.length >= 1) {
+		if(currentCookie.length > 0) {
 			for(id of currentCookie) {
-				let getData = await fetch(`https://aoyama.fansub.id/feeds/posts/default/${id}?alt=json`);
+				let getData = await fetch(`/feeds/posts/default/${id}?alt=json`);
 				let json = await getData.json();
 				let list = document.createElement('div');
-				currentCookie.appendChild(list);
+				bookmarkList.appendChild(list);
 				console.log(json);
 			}
 		}
