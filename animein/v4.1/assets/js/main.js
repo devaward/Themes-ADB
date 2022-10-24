@@ -307,39 +307,4 @@ let episode_perid = ({
 	} else {
 		document.querySelector('.more_info .tablist .tab.tab1').innerHTML = '<div class="err">Belum upload Episode</div>';
 	}
-} /* [tambah animeinfo] */
-let add_anime = form => {
-	function fallbackCopyTextToClipboard(e) {
-		var o = document.createElement("textarea");
-		o.value = e, o.style.top = "0", o.style.left = "0", o.style.position = "fixed", document.body.appendChild(o), o.focus(), o.select();
-		try {
-			var t = document.execCommand("copy") ? "successful" : "unsuccessful";
-			console.log("Fallback: Copying text command was " + t)
-		} catch (e) {
-			console.error("Fallback: Oops, unable to copy", e)
-		}
-		document.body.removeChild(o)
-	}
-
-	function copyTextToClipboard(e) {
-		navigator.clipboard ? navigator.clipboard.writeText(e).then((function() {
-			console.log("Async: Copying to clipboard was successful!")
-		}), (function(e) {
-			console.error("Async: Could not copy text: ", e)
-		})) : fallbackCopyTextToClipboard(e)
-	}
-	return eval(function(e, o, t, x, n, c) {
-		if (n = function(e) {
-				return (e < 62 ? "" : n(parseInt(e / 62))) + ((e %= 62) > 35 ? String.fromCharCode(e + 29) : e.toString(36))
-			}, !"".replace(/^/, String)) {
-			for (; t--;) c[n(t)] = x[t] || n(t);
-			x = [function(e) {
-				return c[e]
-			}], n = function() {
-				return "\\w+"
-			}, t = 1
-		}
-		for (; t--;) x[t] && (e = e.replace(new RegExp("\\b" + n(t) + "\\b", "g"), x[t]));
-		return e
-	}("4 0=5;6 7(){4 r=['j','p[8=\\A\\9]','B','C','D','E','k','l\\F','m','n','G','p[8=\\H\\9]','I','J','K','q','L[8=\\M\\9]','N','l\\O','l\\P\\Q','R','S','T\\s\\U,\\V\\W\\s\\X\\Y.','l\\Z','10','11','12'];7=6(){o r};o 7()}6 5(c,d){4 t=7();o 5=6(a,b){a=a-u;v w=t[a];o w},5(c,d)}(6(a,b){4 1=5,e=a();13(!![]){14{4 x=2(1(15))/16*(2(1(17))/18)+-2(1(19))/1a*(2(1(1b))/1c)+-2(1(1d))/1e+2(1(1f))/1g*(-2(1(1h))/1i)+2(1(1j))/1k*(-2(1(1l))/1m)+-2(1(1n))/1o+2(1(1p))/1q;1r(x===b)1s;1t e['y'](e['z']())}1u(1v){e['y'](e['z']())}}}(7,1w));v 3={};m=f[0(g)]('p[8=\\1x\\9]')[0(h)],n=f[0(g)](0(1y))[0(h)],q=f[0(g)](0(1z))[0(h)],j=f[0(g)](0(1A))[0(h)],k=f[0(g)]('1B[8=\\1C\\9]')[0(h)];!m?i(0(1D)):(3[0(u)]=m,!n?i(0(1E)):(3[0(1F)]=n,!j?i(0(1G)):(3[0(1H)]=j,!k?i(0(1I)):(3[0(1J)]=k,3[0(1K)]=q,1L(1M[0(1N)](3)),i(0(1O))))));", 0, 113, "_0x1be78c|_0x19b60f|parseInt|json|const|_0x87f3|function|_0x1cf6|name|x22|||||_0xe6a6d1|form|0x190|0x189|alert|score|synopsis|masukkan|title|mal_id|return|input|type|_0x2ccb6e|x20di|_0x1cf658|0x179|let|_0x701420|_0x48858d|push|shift|x22score|8332qwFSyN|1094430iExLJX|querySelector|84eZtuXP|x20score|36LNqZuy|x22mal|20044SWEpKU|204ywjddj|2115pUNccY|select|x22type|142219okIAGS|x20sinopsis|x20mal|x20id|stringify|42927687cLXiRc|Sudah|x20Copy|x20silahkan|x20tempel|x20postingan|x20blogger|x20title|value|5877730mzBCVP|1120280dogMPu|while|try|0x191|0x1|0x17d|0x2|0x17f|0x3|0x18e|0x4|0x18a|0x5|0x17e|0x6|0x182|0x7|0x18b|0x8|0x17b|0x9|0x18f|0xa|0x186|0xb|if|break|else|catch|_0x3c2d3d|0xb4a67|x22title|0x17c|0x181|0x18d|textarea|x22sinopsis|0x188|0x184|0x17a|0x193|0x18c|0x183|0x192|0x180|copyTextToClipboard|JSON|0x185|0x187".split("|"), 0, {})), !1
-}; /*]]> */
+}
