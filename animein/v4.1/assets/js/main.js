@@ -102,9 +102,11 @@ let pecahJSON = async () => {
 				scr_ep.remove();
 			}
 		} else {
-			/*console.log('ID untuk mengambil daftar Episode Gaada');*/ }
+			/*console.log('ID untuk mengambil daftar Episode Gaada');*/
+		}
 	} catch (e) {
-		/*console.log(`Invalid JSON Anime Info`);*/ }
+		/*console.log(`Invalid JSON Anime Info`);*/
+	}
 }
 /* [Anime Post] */
 let animepost = document.querySelector('.jona_animepost .item-post .dataJSON');
@@ -216,7 +218,8 @@ try {
 		scripteps.remove()
 	};
 } catch (e) {
-	/*console.log('Error Anime Post : ' + e);*/ }
+	/*console.log('Error Anime Post : ' + e);*/
+}
 
 function nFormatter(num, digits) {
 	const lookup = [{
@@ -248,28 +251,95 @@ function nFormatter(num, digits) {
 	return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
 }
 let ambil_mal = async (id) => {
-			let url = `https://api.jikan.moe/v4/anime/${id}`;
-			let get = await fetch(url);
-			let stat = await fetch(`${url}/statistics`);
-			let char = await fetch(`${url}/characters`);
-			let json_stat = await stat.json();
-			let json_get = await get.json();
-			let json_char = await char.json();
-			let item = document.querySelector('.item-post');
-			let info = item.querySelector('.info');
-			item.querySelector('.js-loading').remove(); /* [Statistik Skor] */
-			let score = document.createElement('div');
-			score.classList.add('score');
-			score.innerHTML = `<span class='title'>Score</span><div class="score_"><div class="info"><div class="star"><svg xmlns="http://www.w3.org/2000/svg" width="6rem" height="6rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><label>${json_get.data.score}</label></div> ${Object.keys(json_stat.data).map(k => k !== 'scores' ? `<div class="list"><label>${k.replace(/_/g,' ')}</label><span>${nFormatter(json_stat.data[k], 1)}</span></div>` : '').join('')} </div><div class="stats"><h3>Votes</h3> ${json_stat.data.scores.map(e => `<div class="stat s${e.score}"><span>${e.score}</span><div><span style="width:${e.percentage}%"></span><label>${nFormatter(e.votes, 1)}</label></div></div>`).join('')} </div></div>`;
-			info.appendChild(score); /* [More Info] */
-			let more_info = document.createElement('div');
-			more_info.classList.add('more_info');
-			more_info.innerHTML = `<div class="tabs"><button id="tab1" class="active">Daftar Episode</button><button id="tab2">Info Lainnya</button><button id="tab3">Karakter & Staff</button></div><div class="tablist"><div class="tab tab1 active"></div><div class="tab tab2"></div><div class="tab tab3"></div></div>`;
-			await info.appendChild(more_info);
-			[...more_info.querySelectorAll('.tabs button')].map(tab => {
-						tab.onclick = () => {
-								[...document.querySelectorAll('.tabs button')].map(e => e.classList.remove('active'));
-								[...document.querySelectorAll('.tablist .tab')].map(e => e.classList.remove('active'));
-								let id_tab = tab.getAttribute('id');
-								tab.classList.add('active');
-								document.querySelector(`.tablist .${id_tab}`).classList.add('active'); //console.log(tab) } } ) /* [Karakter] */ let list_char = document.createElement('div'); list_char.classList.add('daftar_karakter'); list_char.innerHTML = `<span class="title">Karakter & Staff</span><div class="karakter_"> ${json_char.data.map(c => `<div class="daftar"><span class="role">${c.role}</span><div class="char"><img src="${c.character.images.jpg.image_url}"/><span>${c.character.name}</span></div><div class="staff"> ${c.voice_actors.map(p => `<div class="person"><img src="${p.person.images.jpg.image_url}"/><span class="lang">${p.language}</span><span class="name">${p.person.name}</span></div>`).join('')} </div></div>`).join('')} </div>`; info.querySelector('.tab3').appendChild(list_char); } let episode_perid = ({feed}) => { let {entry} = feed; if(entry) { let show_eps = (e) => { let {content} = e; dataJSON = content['$t']; let doc = new DOMParser().parseFromString('<div class="data">'+dataJSON+'</div>', "text/xml") if(doc.querySelector('.dataJSON')) { try { let json = JSON.parse(doc.querySelector('.dataJSON').textContent); return `<a href="${e.link.map(link => (link.rel == 'alternate' ? link.href : '')).join('')}">${e.category.map(cat => (cat.term.indexOf('Episode') !== -1 ? cat.term : '')).join('')}<span>${json.duration ? json.duration : '-'}</span></a>`; } catch(e) {/*console.log('terdeteksi bukan JSON di episode_perid')*/} } else { //console.log('dataJSON di fungsi episode_perid tidak di temukan'); } } document.querySelector('.more_info .tablist .tab.tab1').innerHTML = `<div class="list_eps">${entry.map(e => show_eps(e)).join('')}</div>`; } else { document.querySelector('.more_info .tablist .tab.tab1').innerHTML = '<div class="err">Belum upload Episode</div>'; } } /* [tambah animeinfo] */ let add_anime=form=>{function fallbackCopyTextToClipboard(e){var o=document.createElement("textarea");o.value=e,o.style.top="0",o.style.left="0",o.style.position="fixed",document.body.appendChild(o),o.focus(),o.select();try{var t=document.execCommand("copy")?"successful":"unsuccessful";console.log("Fallback: Copying text command was "+t)}catch(e){console.error("Fallback: Oops, unable to copy",e)}document.body.removeChild(o)}function copyTextToClipboard(e){navigator.clipboard?navigator.clipboard.writeText(e).then((function(){console.log("Async: Copying to clipboard was successful!")}),(function(e){console.error("Async: Could not copy text: ",e)})):fallbackCopyTextToClipboard(e)}return eval(function(e,o,t,x,n,c){if(n=function(e){return(e<62?"":n(parseInt(e/62)))+((e%=62)>35?String.fromCharCode(e+29):e.toString(36))},!"".replace(/^/,String)){for(;t--;)c[n(t)]=x[t]||n(t);x=[function(e){return c[e]}],n=function(){return"\\w+"},t=1}for(;t--;)x[t]&&(e=e.replace(new RegExp("\\b"+n(t)+"\\b","g"),x[t]));return e}("4 0=5;6 7(){4 r=['j','p[8=\\A\\9]','B','C','D','E','k','l\\F','m','n','G','p[8=\\H\\9]','I','J','K','q','L[8=\\M\\9]','N','l\\O','l\\P\\Q','R','S','T\\s\\U,\\V\\W\\s\\X\\Y.','l\\Z','10','11','12'];7=6(){o r};o 7()}6 5(c,d){4 t=7();o 5=6(a,b){a=a-u;v w=t[a];o w},5(c,d)}(6(a,b){4 1=5,e=a();13(!![]){14{4 x=2(1(15))/16*(2(1(17))/18)+-2(1(19))/1a*(2(1(1b))/1c)+-2(1(1d))/1e+2(1(1f))/1g*(-2(1(1h))/1i)+2(1(1j))/1k*(-2(1(1l))/1m)+-2(1(1n))/1o+2(1(1p))/1q;1r(x===b)1s;1t e['y'](e['z']())}1u(1v){e['y'](e['z']())}}}(7,1w));v 3={};m=f[0(g)]('p[8=\\1x\\9]')[0(h)],n=f[0(g)](0(1y))[0(h)],q=f[0(g)](0(1z))[0(h)],j=f[0(g)](0(1A))[0(h)],k=f[0(g)]('1B[8=\\1C\\9]')[0(h)];!m?i(0(1D)):(3[0(u)]=m,!n?i(0(1E)):(3[0(1F)]=n,!j?i(0(1G)):(3[0(1H)]=j,!k?i(0(1I)):(3[0(1J)]=k,3[0(1K)]=q,1L(1M[0(1N)](3)),i(0(1O))))));",0,113,"_0x1be78c|_0x19b60f|parseInt|json|const|_0x87f3|function|_0x1cf6|name|x22|||||_0xe6a6d1|form|0x190|0x189|alert|score|synopsis|masukkan|title|mal_id|return|input|type|_0x2ccb6e|x20di|_0x1cf658|0x179|let|_0x701420|_0x48858d|push|shift|x22score|8332qwFSyN|1094430iExLJX|querySelector|84eZtuXP|x20score|36LNqZuy|x22mal|20044SWEpKU|204ywjddj|2115pUNccY|select|x22type|142219okIAGS|x20sinopsis|x20mal|x20id|stringify|42927687cLXiRc|Sudah|x20Copy|x20silahkan|x20tempel|x20postingan|x20blogger|x20title|value|5877730mzBCVP|1120280dogMPu|while|try|0x191|0x1|0x17d|0x2|0x17f|0x3|0x18e|0x4|0x18a|0x5|0x17e|0x6|0x182|0x7|0x18b|0x8|0x17b|0x9|0x18f|0xa|0x186|0xb|if|break|else|catch|_0x3c2d3d|0xb4a67|x22title|0x17c|0x181|0x18d|textarea|x22sinopsis|0x188|0x184|0x17a|0x193|0x18c|0x183|0x192|0x180|copyTextToClipboard|JSON|0x185|0x187".split("|"),0,{})),!1}; /*]]> */
+	let url = `https://api.jikan.moe/v4/anime/${id}`;
+	let get = await fetch(url);
+	let stat = await fetch(`${url}/statistics`);
+	let char = await fetch(`${url}/characters`);
+	let json_stat = await stat.json();
+	let json_get = await get.json();
+	let json_char = await char.json();
+	let item = document.querySelector('.item-post');
+	let info = item.querySelector('.info');
+	item.querySelector('.js-loading').remove(); /* [Statistik Skor] */
+	let score = document.createElement('div');
+	score.classList.add('score');
+	score.innerHTML = `<span class='title'>Score</span><div class="score_"><div class="info"><div class="star"><svg xmlns="http://www.w3.org/2000/svg" width="6rem" height="6rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><label>${json_get.data.score}</label></div> ${Object.keys(json_stat.data).map(k => k !== 'scores' ? `<div class="list"><label>${k.replace(/_/g,' ')}</label><span>${nFormatter(json_stat.data[k], 1)}</span></div>` : '').join('')} </div><div class="stats"><h3>Votes</h3> ${json_stat.data.scores.map(e => `<div class="stat s${e.score}"><span>${e.score}</span><div><span style="width:${e.percentage}%"></span><label>${nFormatter(e.votes, 1)}</label></div></div>`).join('')} </div></div>`;
+	info.appendChild(score); /* [More Info] */
+	let more_info = document.createElement('div');
+	more_info.classList.add('more_info');
+	more_info.innerHTML = `<div class="tabs"><button id="tab1" class="active">Daftar Episode</button><button id="tab2">Info Lainnya</button><button id="tab3">Karakter & Staff</button></div><div class="tablist"><div class="tab tab1 active"></div><div class="tab tab2"></div><div class="tab tab3"></div></div>`;
+	await info.appendChild(more_info);
+	[...more_info.querySelectorAll('.tabs button')].map(tab => {
+		tab.onclick = () => {
+			[...document.querySelectorAll('.tabs button')].map(e => e.classList.remove('active'));
+			[...document.querySelectorAll('.tablist .tab')].map(e => e.classList.remove('active'));
+			let id_tab = tab.getAttribute('id');
+			tab.classList.add('active');
+			document.querySelector(`.tablist .${id_tab}`).classList.add('active'); /*console.log(tab)*/
+		}
+	}) /* [Karakter] */ let list_char = document.createElement('div');
+	list_char.classList.add('daftar_karakter');
+	list_char.innerHTML = `<span class="title">Karakter & Staff</span><div class="karakter_"> ${json_char.data.map(c => `<div class="daftar"><span class="role">${c.role}</span><div class="char"><img src="${c.character.images.jpg.image_url}"/><span>${c.character.name}</span></div><div class="staff"> ${c.voice_actors.map(p => `<div class="person"><img src="${p.person.images.jpg.image_url}"/><span class="lang">${p.language}</span><span class="name">${p.person.name}</span></div>`).join('')} </div></div>`).join('')} </div>`;
+	info.querySelector('.tab3').appendChild(list_char);
+}
+let episode_perid = ({
+	feed
+}) => {
+	let {
+		entry
+	} = feed;
+	if (entry) {
+		let show_eps = (e) => {
+			let {
+				content
+			} = e;
+			dataJSON = content['$t'];
+			let doc = new DOMParser().parseFromString('<div class="data">' + dataJSON + '</div>', "text/xml") if (doc.querySelector('.dataJSON')) {
+				try {
+					let json = JSON.parse(doc.querySelector('.dataJSON').textContent);
+					return `<a href="${e.link.map(link => (link.rel == 'alternate' ? link.href : '')).join('')}">${e.category.map(cat => (cat.term.indexOf('Episode') !== -1 ? cat.term : '')).join('')}<span>${json.duration ? json.duration : '-'}</span></a>`;
+				} catch (e) {
+					/*console.log('terdeteksi bukan JSON di episode_perid')*/ }
+			} else {
+				/*console.log('dataJSON di fungsi episode_perid tidak di temukan');*/ }
+		}
+		document.querySelector('.more_info .tablist .tab.tab1').innerHTML = `<div class="list_eps">${entry.map(e => show_eps(e)).join('')}</div>`;
+	} else {
+		document.querySelector('.more_info .tablist .tab.tab1').innerHTML = '<div class="err">Belum upload Episode</div>';
+	}
+} /* [tambah animeinfo] */
+let add_anime = form => {
+	function fallbackCopyTextToClipboard(e) {
+		var o = document.createElement("textarea");
+		o.value = e, o.style.top = "0", o.style.left = "0", o.style.position = "fixed", document.body.appendChild(o), o.focus(), o.select();
+		try {
+			var t = document.execCommand("copy") ? "successful" : "unsuccessful";
+			console.log("Fallback: Copying text command was " + t)
+		} catch (e) {
+			console.error("Fallback: Oops, unable to copy", e)
+		}
+		document.body.removeChild(o)
+	}
+
+	function copyTextToClipboard(e) {
+		navigator.clipboard ? navigator.clipboard.writeText(e).then((function() {
+			console.log("Async: Copying to clipboard was successful!")
+		}), (function(e) {
+			console.error("Async: Could not copy text: ", e)
+		})) : fallbackCopyTextToClipboard(e)
+	}
+	return eval(function(e, o, t, x, n, c) {
+		if (n = function(e) {
+				return (e < 62 ? "" : n(parseInt(e / 62))) + ((e %= 62) > 35 ? String.fromCharCode(e + 29) : e.toString(36))
+			}, !"".replace(/^/, String)) {
+			for (; t--;) c[n(t)] = x[t] || n(t);
+			x = [function(e) {
+				return c[e]
+			}], n = function() {
+				return "\\w+"
+			}, t = 1
+		}
+		for (; t--;) x[t] && (e = e.replace(new RegExp("\\b" + n(t) + "\\b", "g"), x[t]));
+		return e
+	}("4 0=5;6 7(){4 r=['j','p[8=\\A\\9]','B','C','D','E','k','l\\F','m','n','G','p[8=\\H\\9]','I','J','K','q','L[8=\\M\\9]','N','l\\O','l\\P\\Q','R','S','T\\s\\U,\\V\\W\\s\\X\\Y.','l\\Z','10','11','12'];7=6(){o r};o 7()}6 5(c,d){4 t=7();o 5=6(a,b){a=a-u;v w=t[a];o w},5(c,d)}(6(a,b){4 1=5,e=a();13(!![]){14{4 x=2(1(15))/16*(2(1(17))/18)+-2(1(19))/1a*(2(1(1b))/1c)+-2(1(1d))/1e+2(1(1f))/1g*(-2(1(1h))/1i)+2(1(1j))/1k*(-2(1(1l))/1m)+-2(1(1n))/1o+2(1(1p))/1q;1r(x===b)1s;1t e['y'](e['z']())}1u(1v){e['y'](e['z']())}}}(7,1w));v 3={};m=f[0(g)]('p[8=\\1x\\9]')[0(h)],n=f[0(g)](0(1y))[0(h)],q=f[0(g)](0(1z))[0(h)],j=f[0(g)](0(1A))[0(h)],k=f[0(g)]('1B[8=\\1C\\9]')[0(h)];!m?i(0(1D)):(3[0(u)]=m,!n?i(0(1E)):(3[0(1F)]=n,!j?i(0(1G)):(3[0(1H)]=j,!k?i(0(1I)):(3[0(1J)]=k,3[0(1K)]=q,1L(1M[0(1N)](3)),i(0(1O))))));", 0, 113, "_0x1be78c|_0x19b60f|parseInt|json|const|_0x87f3|function|_0x1cf6|name|x22|||||_0xe6a6d1|form|0x190|0x189|alert|score|synopsis|masukkan|title|mal_id|return|input|type|_0x2ccb6e|x20di|_0x1cf658|0x179|let|_0x701420|_0x48858d|push|shift|x22score|8332qwFSyN|1094430iExLJX|querySelector|84eZtuXP|x20score|36LNqZuy|x22mal|20044SWEpKU|204ywjddj|2115pUNccY|select|x22type|142219okIAGS|x20sinopsis|x20mal|x20id|stringify|42927687cLXiRc|Sudah|x20Copy|x20silahkan|x20tempel|x20postingan|x20blogger|x20title|value|5877730mzBCVP|1120280dogMPu|while|try|0x191|0x1|0x17d|0x2|0x17f|0x3|0x18e|0x4|0x18a|0x5|0x17e|0x6|0x182|0x7|0x18b|0x8|0x17b|0x9|0x18f|0xa|0x186|0xb|if|break|else|catch|_0x3c2d3d|0xb4a67|x22title|0x17c|0x181|0x18d|textarea|x22sinopsis|0x188|0x184|0x17a|0x193|0x18c|0x183|0x192|0x180|copyTextToClipboard|JSON|0x185|0x187".split("|"), 0, {})), !1
+}; /*]]> */
