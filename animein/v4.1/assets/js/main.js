@@ -8,9 +8,9 @@ let getNewsEpisode = async (el) => {
 	} = json.feed;
 	if (typeof entry != "undefined" && entry != null && entry.length != null && entry.length > 0) {
 		for (let {
-				rel,
-				href
-			} of entry[0].link) {
+			rel,
+			href
+		} of entry[0].link) {
 			if (rel == "alternate") {
 				window.location = href;
 			}
@@ -32,29 +32,29 @@ function jonaLazyLoad() {
 		isInViewport(document.body) && document.body.classList.contains('addPecahJSON') !== true ? pecahJSON() : false;
 		document.querySelector('#HTML1 .episodebaru .daftar_episode') && document.body.classList.contains('addPerEpisode') !== true ? perEpisode() : false;
 	}
-
+	
 	function isInViewport(e) {
 		var t = e.getBoundingClientRect();
 		return t.bottom >= 0 && t.right >= 0 && t.top <= (window.innerHeight || document.documentElement.clientHeight) && t.left <= (window.innerWidth || document.documentElement.clientWidth)
 	}
-
+	
 	function registerListener(e, t) {
 		window.addEventListener ? window.addEventListener(e, t) : window.attachEvent('on' + e, t)
 	}
 	registerListener('click', lazy), registerListener('load', lazy), registerListener('scroll', lazy), document.addEventListener('DOMContentLoaded', (function() {
 		'use strict';
 		for (var e = document.querySelectorAll('a'), t = e.length, n = /firefox|trident/i ['test'](navigator.userAgent) ? document.documentElement : document.body, d = function(e, t, n, d) {
-				return (e /= d / 2) < 1 ? n / 2 * e * e * e + t : n / 2 * ((e -= 2) * e * e + 2) + t
-			}; t--;) e.item(t).addEventListener('click', (function(e) {
+			return (e /= d / 2) < 1 ? n / 2 * e * e * e + t : n / 2 * ((e -= 2) * e * e + 2) + t
+		}; t--;) e.item(t).addEventListener('click', (function(e) {
 			var t, i = n.scrollTop,
-				o = document.getElementById(/[^#]+$/ ['exec'](this.href)[0]).getBoundingClientRect().top,
-				r = n.scrollHeight - window.innerHeight,
-				b = r > i + o ? o : r - i,
-				c = function(e) {
-					var o = e - (t = t || e),
-						r = d(o, i, b, 900);
-					n.scrollTop = r, 900 > o && requestAnimationFrame(c)
-				};
+			o = document.getElementById(/[^#]+$/ ['exec'](this.href)[0]).getBoundingClientRect().top,
+			r = n.scrollHeight - window.innerHeight,
+			b = r > i + o ? o : r - i,
+			c = function(e) {
+				var o = e - (t = t || e),
+				r = d(o, i, b, 900);
+				n.scrollTop = r, 900 > o && requestAnimationFrame(c)
+			};
 			requestAnimationFrame(c), e.preventDefault()
 		}))
 	}));
@@ -140,9 +140,9 @@ try {
 			}
 		}
 		for (let {
-				name,
-				url
-			} of streaming) {
+			name,
+			url
+		} of streaming) {
 			i === 0 ? eliframe.src = url : false;
 			let span = document.createElement('span');
 			let locspan = document.querySelector('.jona_animepost .content .stream .server_list .list');
@@ -173,10 +173,10 @@ try {
 			tab1.innerHTML = `<div class="dl"><h3>${title}</h3><div class="dl-list"></div></div>`; /* [Show url] */
 			let dllist = document.querySelector('.dl .dl-list');
 			for ({
-					quality,
-					name,
-					url
-				} of download) {
+				quality,
+				name,
+				url
+			} of download) {
 				if (!dllist.querySelector(`.list[quality="${quality}"]`)) {
 					let list = document.createElement('div');
 					let quality_title = document.createElement('b');
@@ -199,7 +199,9 @@ try {
 		spanError.classList.add('error');
 		spanError.innerText = 'Server Download tidak tersedia';
 		tab1.appendChild(spanError);
-	} /* [tab animepost] */ [...document.querySelectorAll('.jona_animepost .content .more .etabs button')].map(t => {
+	}
+	/* [tab animepost] */
+	[...document.querySelectorAll('.jona_animepost .content .more .etabs button')].map(t => {
 		t.onclick = () => {
 			let classTab = t.getAttribute('class');
 			[...document.querySelectorAll('.jona_animepost .content .more .etabs button')].map(b => b.classList.remove('active'));
@@ -207,7 +209,9 @@ try {
 			document.querySelector(`.jona_animepost .content .more .etabs-list div#${classTab}`).classList.add('active');
 			t.classList.add('active');
 		}
-	}); /* [Episode List] */
+	});
+	
+	/* [Episode List] */
 	let jonanime_id = document.querySelector('.jona_animepost').getAttribute('jonanime_id');
 	let geteps = `/feeds/posts/default?callback=episodelist&alt=json&start-index=1&max-results=9999&q=label:${encodeURIComponent(jonanime_id)}`;
 	let scripteps = document.createElement('script');
@@ -260,11 +264,15 @@ let ambil_mal = async (id) => {
 	let json_char = await char.json();
 	let item = document.querySelector('.item-post');
 	let info = item.querySelector('.info');
-	item.querySelector('.js-loading').remove(); /* [Statistik Skor] */
+	item.querySelector('.js-loading').remove(); 
+	
+	/* [Statistik Skor] */
 	let score = document.createElement('div');
 	score.classList.add('score');
 	score.innerHTML = `<span class='title'>Score</span><div class="score_"><div class="info"><div class="star"><svg xmlns="http://www.w3.org/2000/svg" width="6rem" height="6rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><label>${json_get.data.score}</label></div> ${Object.keys(json_stat.data).map(k => k !== 'scores' ? `<div class="list"><label>${k.replace(/_/g,' ')}</label><span>${nFormatter(json_stat.data[k], 1)}</span></div>` : '').join('')} </div><div class="stats"><h3>Votes</h3> ${json_stat.data.scores.map(e => `<div class="stat s${e.score}"><span>${e.score}</span><div><span style="width:${e.percentage}%"></span><label>${nFormatter(e.votes, 1)}</label></div></div>`).join('')} </div></div>`;
-	info.appendChild(score); /* [More Info] */
+	info.appendChild(score);
+	
+	/* [More Info] */
 	let more_info = document.createElement('div');
 	more_info.classList.add('more_info');
 	more_info.innerHTML = `<div class="tabs"><button id="tab1" class="active">Daftar Episode</button><button id="tab2">Info Lainnya</button><button id="tab3">Karakter & Staff</button></div><div class="tablist"><div class="tab tab1 active"></div><div class="tab tab2"></div><div class="tab tab3"></div></div>`;
@@ -275,9 +283,14 @@ let ambil_mal = async (id) => {
 			[...document.querySelectorAll('.tablist .tab')].map(e => e.classList.remove('active'));
 			let id_tab = tab.getAttribute('id');
 			tab.classList.add('active');
-			document.querySelector(`.tablist .${id_tab}`).classList.add('active'); /*console.log(tab)*/
+			document.querySelector(`.tablist .${id_tab}`).classList.add('active');
+			
+			/*console.log(tab)*/
 		}
-	}) /* [Karakter] */ let list_char = document.createElement('div');
+	})
+	
+	/* [Karakter] */
+	let list_char = document.createElement('div');
 	list_char.classList.add('daftar_karakter');
 	list_char.innerHTML = `<span class="title">Karakter & Staff</span><div class="karakter_"> ${json_char.data.map(c => `<div class="daftar"><span class="role">${c.role}</span><div class="char"><img src="${c.character.images.jpg.image_url}"/><span>${c.character.name}</span></div><div class="staff"> ${c.voice_actors.map(p => `<div class="person"><img src="${p.person.images.jpg.image_url}"/><span class="lang">${p.language}</span><span class="name">${p.person.name}</span></div>`).join('')} </div></div>`).join('')} </div>`;
 	info.querySelector('.tab3').appendChild(list_char);
@@ -308,3 +321,4 @@ let episode_perid = ({
 		document.querySelector('.more_info .tablist .tab.tab1').innerHTML = '<div class="err">Belum upload Episode</div>';
 	}
 }
+/*]]> */
