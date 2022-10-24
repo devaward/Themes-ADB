@@ -340,7 +340,8 @@ let episode_perid = ({
 				content
 			} = e;
 			dataJSON = content['$t'];
-			let doc = new DOMParser().parseFromString('<div class="data">' + dataJSON + '</div>', "text/xml") if (doc.querySelector('.dataJSON')) {
+			let doc = new DOMParser().parseFromString('<div class="data">' + dataJSON + '</div>', "text/xml");
+                        if (doc.querySelector('.dataJSON')) {
 				try {
 					let json = JSON.parse(doc.querySelector('.dataJSON').textContent);
 					return `<a href="${e.link.map(link => (link.rel == 'alternate' ? link.href : '')).join('')}">${e.category.map(cat => (cat.term.indexOf('Episode') !== -1 ? cat.term : '')).join('')}<span>${json.duration ? json.duration : '-'}</span></a>`;
