@@ -84,7 +84,7 @@ let pecahJSON = async () => {
 	}, 500);
 	let post_ainfo = document.querySelector('.jona_animeinfo .item-post .dataJSON');
 	try {
-		let doc = new DOMParser().parseFromString('<div class="data">' + post_ainfo.innerHTML + '</div>', "text/xml") let json = JSON.parse(doc.querySelector('.dataJSON').textContent);
+		let doc = new DOMParser().parseFromString('<div class="data">' + post_ainfo.innerHTML + '</div>', "text/xml"); let json = JSON.parse(doc.querySelector('.dataJSON').textContent);
 		let img = doc.querySelector('.separator a img').getAttribute('src');
 		let dimg = document.querySelector('.jona_animeinfo .item-post .info');
 		dimg.querySelector('.cover img').style.backgroundImage = `url(${img})`;
