@@ -24,7 +24,7 @@ let getNewsEpisode = async(el) => {
 }
 
 /* [Episode List BY Id] */
-let episodeListbyId = (data) => {
+function episodeListbyId (data) {
 	const {entry} = data.feed;
 	for(e of entry) {
 		console.log(e);
