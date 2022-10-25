@@ -65,6 +65,7 @@ function jonaLazyLoad() {
   }));
 }
 window.addEventListener ? window.addEventListener('load', jonaLazyLoad, false) : window.attachEvent ? window.attachEvent('load', jonaLazyLoad) : window.onload = jonaLazyLoad, window.addEventListener ? window.addEventListener('load', jonaLazyLoad, false) : window.attachEvent ? window.attachEvent('load', jonaLazyLoad) : window.onload = jonaLazyLoad; /* [Pecah JSON] */
+
 let pecahJSON = async() => {
     let interval = setInterval(() => {
       let posts = [...document.querySelectorAll('.blog .l .index-post')];
@@ -226,6 +227,7 @@ try {
     spanError.innerText = 'Server Download tidak tersedia';
     tab1.appendChild(spanError);
   }
+  
   /* [tab animepost] */
   [...document.querySelectorAll('.jona_animepost .content .more .etabs button')].map(t => {
     t.onclick = () => {
@@ -239,10 +241,12 @@ try {
   });
 
   /* [Episode List] */
-  let jonanime_id = document.querySelector('.jona_animepost')
-    .getAttribute('jonanime_id');
-  let geteps = `/feeds/posts/default?callback=episodelist&alt=json&start-index=1&max-results=9999&q=label:${encodeURIComponent(jonanime_id)}`;
+  let jonanime_id = document.querySelector('.jona_animepost').getAttribute('jonanime_id');
+  let geteps = `/feeds/posts/default?callback=episodelist&alt=json-in-script&callback=episodeList_byId&start-index=1&max-results=9999&q=label:${encodeURIComponent(jonanime_id)}`;
   let scripteps = document.createElement('script');
+  let episodeList_byId = (data) => {
+  	console.log(data);
+  }
   scripteps.src = geteps;
   scripteps.type = 'application/javascript';
   document.body.appendChild(scripteps);
