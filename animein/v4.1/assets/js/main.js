@@ -244,8 +244,11 @@ try {
   let jonanime_id = document.querySelector('.jona_animepost').getAttribute('jonanime_id');
   let geteps = `/feeds/posts/default?callback=episodelist&alt=json-in-script&callback=episodeList_byId&start-index=1&max-results=9999&q=label:${encodeURIComponent(jonanime_id)}`;
   let scripteps = document.createElement('script');
-  let episodeList_byId = (data) => {
-  	console.log(data);
+  let episodeList_byId = ({feed}) => {
+  	const {entry} = feed;
+  	for(e of entry) {
+  		console.log(e);
+  	}
   }
   scripteps.src = geteps;
   scripteps.type = 'application/javascript';
@@ -300,8 +303,7 @@ let ambil_mal = async(id) => {
     let json_char = await char.json();
     let item = document.querySelector('.item-post');
     let info = item.querySelector('.info');
-    item.querySelector('.js-loading')
-      .remove();
+    item.querySelector('.js-loading').remove();
 
     /* [Statistik Skor] */
     let score = document.createElement('div');
