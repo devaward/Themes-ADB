@@ -22,9 +22,6 @@ let getNewsEpisode = async(el) => {
   }
   return false;
 }
-let episodelist = (a) => {
-  console.log(a);
-}
 
 /* [LazyLoad] */
 function jonaLazyLoad() {
@@ -242,7 +239,7 @@ try {
 
   /* [Episode List] */
   let jonanime_id = document.querySelector('.jona_animepost').getAttribute('jonanime_id');
-  let geteps = `/feeds/posts/default?callback=episodelist&alt=json-in-script&callback=episodeList_byId&start-index=1&max-results=9999&q=label:${encodeURIComponent(jonanime_id)}`;
+  let geteps = `/feeds/posts/default?alt=json-in-script&callback=episodeList_byId&start-index=1&max-results=9999&q=label:${encodeURIComponent(jonanime_id)}`;
   let scripteps = document.createElement('script');
   let episodeList_byId = ({feed}) => {
   	const {entry} = feed;
