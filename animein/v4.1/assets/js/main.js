@@ -239,8 +239,8 @@ try {
 
   /* [Episode List] */
   let jonanime_id = document.querySelector('.jona_animepost').getAttribute('jonanime_id');
-  let geteps = `/feeds/posts/default?alt=json-in-script&callback=episodeList_byId&start-index=1&max-results=9999&q=label:${encodeURIComponent(jonanime_id)}`;
-  let episodeList_byId = ({feed}) => {
+  let geteps = `/feeds/posts/default?alt=json-in-script&callback=episodeListbyId&start-index=1&max-results=9999&q=label:${encodeURIComponent(jonanime_id)}`;
+  let episodeListbyId = ({feed}) => {
   	const {entry} = feed;
   	for(e of entry) {
   		console.log(e);
