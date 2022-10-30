@@ -32,7 +32,7 @@ function episodeListbyId (data) {
 	for(let {link, category} of entry) {
 		let entryLink = link.map(e => e.rel === 'alternate'?e.href:'').join('');
 		let currentLink = window.location.href;
-		let episode = category.map(c => c.term.indexOf('Episode')?c.term:'').join('');
+		let episode = category.map(c => c.term.indexOf('Episode')!==-1?c.term:'').join('');
 		let list = document.createElement('span');
 		epsList.appendChild(list);
 		list.innerText = episode;
