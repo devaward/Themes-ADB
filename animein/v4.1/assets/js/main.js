@@ -26,8 +26,17 @@ let getNewsEpisode = async(el) => {
 /* [Episode List BY Id] */
 function episodeListbyId (data) {
 	const {entry} = data.feed;
-	for(e of entry) {
-		console.log(e);
+	let target = document.querySelector('.jona_animepost .more .etabs-list #tab2');
+	let epsList = document.createElement('div');
+	target.appendChild(epsList);
+	for(let {link, category} of entry) {
+		let entryLink = link.map(e => e.rel === 'alternate'?e.href:'').join('');
+		let currentLink = window.location.href;
+		let episode = category.map(c => c.term.indexOf('Episode')?c.term:'').join('');
+		let list = document.createElement('span');
+		epsList.appendChild(list);
+		list.innerText = episode;
+		window.location.replace = entryLink;
 	}
 }
 
