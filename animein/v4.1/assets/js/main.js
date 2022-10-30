@@ -36,7 +36,8 @@ function episodeListbyId (data) {
 		let list = document.createElement('span');
 		epsList.appendChild(list);
 		list.innerText = episode;
-		window.location.replace = entryLink;
+		entryLink === currentLink ? list.classList.add('current') : false;
+		list.onclick = () => window.location.replace(entryLink);
 	}
 }
 
