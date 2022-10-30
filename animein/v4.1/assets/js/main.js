@@ -1,7 +1,9 @@
 /* <![CDATA[*/
 /* [Get Episode terbaru di Homepage] */
 window.addEventListener('load', ()=>{
-	document.querySelector('.l.splash').classList.remove('splash');
+	setTimeout(()=>{
+		document.querySelector('.l.splash').classList.remove('splash');
+	},3000);
 });
 
 let getNewsEpisode = async(el) => {
