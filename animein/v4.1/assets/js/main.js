@@ -1,5 +1,9 @@
 /* <![CDATA[*/
 /* [Get Episode terbaru di Homepage] */
+window.addEventListener('load', ()=>{
+	document.querySelector('.l.splash').classList.remove('splash');
+});
+
 let getNewsEpisode = async(el) => {
 	let id = el.getAttribute('post-id');
 	let current = await fetch(`/feeds/posts/default/?alt=json&max-results=1&q=label:%23${id}`);
