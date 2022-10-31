@@ -1,9 +1,7 @@
 /* <![CDATA[*/
 /* [Get Episode terbaru di Homepage] */
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.querySelector('.splash').classList.add('disabled');
-  }, 1500);
+  document.querySelector('.splash').classList.add('disabled');
 });
 let getNewsEpisode = async (el) => {
   let id = el.getAttribute('post-id');
