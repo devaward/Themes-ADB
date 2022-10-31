@@ -2,7 +2,7 @@
 /* [Get Episode terbaru di Homepage] */
 window.addEventListener('load', ()=>{
 	setTimeout(()=>{
-		document.querySelector('.l.splash').classList.remove('splash');
+		document.querySelector('.splash').classList.add('disabled');
 	},3000);
 });
 
