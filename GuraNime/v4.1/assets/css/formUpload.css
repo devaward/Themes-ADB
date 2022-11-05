@@ -1,0 +1,84 @@
+.form_upload .aninfo:not(.show), .form_upload .anistream:not(.show), .form_upload .datastream:not(.show), .form_upload .animeinfo:not(.show) {
+     display: none 
+}
+ #resultInfo .titleRes, #resultInfo .composeRes, #resultInfo .genresRes {
+     display: flex;
+     flex-wrap: wrap;
+     align-items: center;
+}
+ .form_upload button:hover, .form_upload input:hover, .form_upload textarea:hover {
+     background-color: #dcedf9;
+     color: #3d4e5a;
+}
+ .form_upload button.active {
+     background-color: #4285f4;
+     color: #fff;
+}
+ .aninfo input, .aninfo textarea, .anistream input, .anistream textarea {
+     background-color: #F1F1f1;
+     padding: .5rem 1rem;
+     margin-block: .25rem;
+     border: none;
+     outline: none;
+     font-size: 12px;
+     border-radius: .25rem 
+}
+ .aninfo, .anistream {
+     padding-block: 1rem;
+}
+ #resultInfo {
+     padding-block: 1rem;
+}
+ .form_upload button {
+     padding: .25rem .5rem;
+     font-size: 12px;
+     border: none;
+     border-radius: .2rem 
+}
+ #resultInfo label {
+     width: 100%;
+     font-size: 13px;
+     margin-top: 1rem;
+}
+ #resultInfo button {
+     margin-left: .5rem;
+}
+ .anistream .animeinfo {
+     display: flex;
+     flex-wrap: wrap;
+     padding: .5rem;
+     background-color: #eef8ff;
+     margin: 0.5rem 0;
+     border-radius: .25rem;
+}
+ .anistream .animeinfo label {
+     width: 100%;
+     font-size: 13px;
+}
+ .anistream .animeinfo input {
+     background-color: #fff;
+}
+ .anistream .animeinfo button.cari_animeinfo {
+     padding: 0 .5rem;
+     margin-left: .5rem;
+}
+ .anistream .animeinfo .response .res {
+     background-color: #fff;
+     font-size: 14px;
+     padding: .5rem;
+     margin: .7rem 0;
+     border-radius: .25rem;
+     border-left: 3px solid;
+}
+ .anistream .animeinfo .response .res .cat {
+     font-size: 12px;
+     color: #888;
+}
+ .anistream .animeinfo .response .res:hover {
+     background-color: #f5f5f5;
+}
+ .form_upload button#injectStream {
+     font-size: 12px;
+     margin: 1rem 0 0;
+     padding: .5rem 1rem;
+}
