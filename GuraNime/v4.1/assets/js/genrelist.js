@@ -50,7 +50,6 @@ window.addEventListener('load', async () => {
               });
 
               /* [check] */
-              console.log(count);
               count == list.length ? (exists==false?document.querySelector('.type_g[type="'+type+'"]').remove():false):false; 
             }
           }
