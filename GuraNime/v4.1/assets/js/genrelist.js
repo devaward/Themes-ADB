@@ -44,7 +44,7 @@ window.addEventListener('load', async () => {
                   lists_g.appendChild(list_g);
                   list_g.innerText = e.title;
                   list_g.onclick = () => {
-                    window.open('/search/label/'+e.label);
+                    window.location = '/search/label/'+e.label;
                   }
                 }
               });
