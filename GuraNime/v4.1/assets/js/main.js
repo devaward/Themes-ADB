@@ -53,7 +53,9 @@ function jonaLazyLoad() {
         for (var e = document.getElementsByClassName("lazy"), t = 0; t < e.length; t++) isInViewport(e[t]) && (e[t].src = e[t].getAttribute("data-src"));
         for (var e = document.getElementsByClassName("lazy-bg"), t = 0; t < e.length; t++) isInViewport(e[t]) && (e[t].style.backgroundImage = `url(${e[t].getAttribute("data-src")})`);
         isInViewport(document.body) && document.body.classList.contains('addPecahJSON') !== true ? pecahJSON() : false;
-        document.querySelector('#HTML1 .episodebaru .daftar_episode') && document.body.classList.contains('addPerEpisode') !== true ? perEpisode() : false;
+        document.querySelector('#HTML1 .episodebaru .daftar_episode') &&
+            document.body.classList.contains('addPerEpisode') !== true &&
+            typeof perEpisode !== 'undefined' ? perEpisode() : false;
     }
 
     function isInViewport(e) {
